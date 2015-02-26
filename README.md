@@ -14,9 +14,9 @@ This gem is a work in progress. I welcome bug reports and pull requests! It's on
 
 ## Sounds great! How do I use it?
 
-Install the gem:
+Install the gem in the usual way:
 ```ruby
-gem install foundation_form_builder
+gem 'foundation_form_builder'
 ```
 Then put the following in your `application.rb` file:
 ```ruby
@@ -43,22 +43,37 @@ will create something like
 </form>
 ```
 
-Note that `FoundationFormBuilder::Rails` uses the Rails form helper functions to render the fields, and that it is somewhat smart in its choice of helpers. It uses `email_field` automatically if the name of the field is `email`; similarly, it uses `password_field` for any field whose name *contains* `password`. If the name of the field is `time_zone`, it renders a Rails `time_zone_select`. If the field corresponds to a `text` column in the database, it calls `text_area`; for a `date` column, it uses `date_field`. Otherwise, a plain `text_field` is used.
+Note that `FoundationFormBuilder::Rails` uses the Rails form helper functions to render the fields, and that it tries to infer the most appropriate form helper type, as follows.
 
+| Condition                               | Default form helper |
+| ----                                    | ----                |
+| Field name is `email`                   | `email_field`       |
+| Field name is `time_zone`               | `time_zone_select`  |
+| Field name contains the word `password` | `password_field`    |
+| Field maps to `date` column in DB       | `date_field`        |
+| Field maps to `text` column in DB       | `text_area`         |
+| Otherwise                               | `text_field`        |
 
-Since `FoundationFormBuilder` is a subclass of the standard Rails `ActionView::Helpers::FormBuilder`, all the usual Rails `FormBuilder` helpers are also available. You'll probably need to use `f.submit` at least; we're not doing anything special with submit buttons at the moment.
+Since `FoundationFormBuilder::Rails` is a subclass of the standard Rails `ActionView::Helpers::FormBuilder`, all the usual Rails `FormBuilder` helpers are also available. You'll probably need to use `f.submit` at least; we're not doing anything special with submit buttons at the moment.
 
 ### Advanced usage
 
-`input_div` takes several options if you want to override its defaults. `:label` overrides the label text, while `:type` overrides the inferred type (known values are `:date`, `:email`, `:password`, `:select`, `:textarea`, and `:time_zone`; anything else is understood as a text field). `:field` takes a hash of options which are passed through to the underlying Rails form helper.
+`input_div` takes several options if you want to override its defaults.
 
-If `type: :select` is specified, then the values for the `select`options must be specified in `:values`, like this:
+| Option    | Value                                                                                                                                                                                                                  |
+| ------    | ------                                                                                                                                                                                                                 |
+| `:field`  | Hash of options to pass through to the underlying Rails form helper                                                                                                                                                    |
+| `:label`  | Text for label                                                                                                                                                                                                         |
+| `:type`   | Explicit form helper type; overrides inferred types (see above). Significant values are `:date`, `:email`, `:password`, `:select`, `:textarea`, and `:time_zone`; `:text` or anything else will generate a text field. |
+| `:values` | Values for `<option>` elements; only meaningful with `type: :select`.                                                                                                                                                  |
+
+The following example shows all of these options in use.
 
 ```ruby
 f.input_div :size, label: 'My size is:', type: :select, values: [['Small', 1], ['Large', 2]], field: {prompt: 'Choose a size'}
 ```
 
-which produces:
+It renders as:
 ```html
 <div class='size'>
   <label for='product_size'>My size is:</label>
