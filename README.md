@@ -1,39 +1,64 @@
 # FoundationFormBuilder
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/foundation_form_builder`. To experiment with that code, run `bin/console` for an interactive prompt.
+## What is this gem for?
 
-TODO: Delete this and the text above, and describe your gem
+[Foundation](http://foundation.zurb.com) is an excellent CSS framework, and provides some [lovely components](http://foundation.zurb.com/docs/components/forms.html) for working with forms. Unfortunately, using them with Rails can be a bit of a hassle, as Foundation wants each form input to be wrapped in a `<div>`, with another `<div>` for errors.
 
-## Installation
+In addition, I wanted to use something like [Formtastic](http://github.com/justinfrench/formtastic) to DRY up my form field markup, but writing new renderers for Formtastic is non-trivial, and I wanted something a bit simpler anyway, so I rolled my own.
 
-Add this line to your application's Gemfile:
+This gem is a work in progress. I welcome bug reports and pull requests! It's only tested on Rails 4.2 and Ruby 2.2 so far, but I'd love to support older versions of both Rails and Ruby if it's not too difficult to do so.
+
+## Sounds great! How do I use it?
+
+Install the gem, then put the following in your `application.rb` file:
+```ruby
+config.action_view.default_form_builder = FoundationFormBuilder
+```
+This tells Rails to use the gem for all forms. If you don't want to do that, then specify it for the particular form you'd like to use it on.
+
+### Simple usage
 
 ```ruby
-gem 'foundation_form_builder'
+form_for @user do |f|
+  f.input_div :email
+end
+```
+will create something like
+```html
+<form action='users/1' and='all the other standard Rails attributes :)'>
+  <div class='email'>
+    <label for='user_email'>Email</label>
+    <input type='email' id='user_email' name='user[email]' />
+    <!-- if there are validation errors, also the following: -->
+    <div class='error'>can't be blank</div>
+  </div>
+</form>
 ```
 
-And then execute:
+Note that `FoundationFormBuilder` uses the Rails form helper functions to render the fields, and that it is somewhat smart in its choice of helpers. It uses `email_field` automatically if the name of the field is `email`; similarly, it uses `password_field` for any field whose name *contains* `password`. If the name of the field is `time_zone`, it renders a Rails `time_zone_select`. If the field corresponds to a `text` column in the database, it calls `text_area`; for a `date` column, it uses `date_field`. Otherwise, a plain `text_field` is used.
 
-    $ bundle
 
-Or install it yourself as:
+Since `FoundationFormBuilder` is a subclass of the standard Rails `ActionView::Helpers::FormBuilder`, all the usual Rails `FormBuilder` helpers are also available. You'll probably need to use `f.submit` at least; we're not doing anything special with submit buttons at the moment.
 
-    $ gem install foundation_form_builder
+### Advanced usage
 
-## Usage
+`input_div` takes several options if you want to override its defaults. `:label` overrides the label text, while `:type` overrides the inferred type (known values are `:date`, `:email`, `:password`, `:select`, `:textarea`, and `:time_zone`; anything else is understood as a text field). `:field` takes a hash of options which are passed through to the underlying Rails form helper.
 
-TODO: Write usage instructions here
+If `type: :select` is specified, then the values for the `select`options must be specified in `:values`, like this:
 
-## Development
+```ruby
+f.input_div :size, label: 'My size is:', type: :select, values: [['Small', 1], ['Large', 2]], field: {prompt: 'Choose a size'}
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/foundation_form_builder/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+which produces:
+```html
+<div class='size'>
+  <label for='product_size'>My size is:</label>
+  <select name='product[size]' id='product_size'>
+    <option>Choose a size</option>
+    <option value='1'>Small</option>
+    <option value='2'>Large</option>
+  </select>
+  <!-- error div if necessary, as above -->
+</div>
+```
