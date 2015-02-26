@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   [
     ['bundler', '~> 1.8'],
+    'codeclimate-test-reporter',
     ['rake', '~> 10.0'],
     'ffaker',
     'guard-rspec',
