@@ -1,5 +1,6 @@
 [![Code Climate](https://codeclimate.com/github/marnen/foundation_form_builder/badges/gpa.svg)](https://codeclimate.com/github/marnen/foundation_form_builder)
 [![Test Coverage](https://codeclimate.com/github/marnen/foundation_form_builder/badges/coverage.svg)](https://codeclimate.com/github/marnen/foundation_form_builder)
+[![Build Status](https://travis-ci.org/marnen/foundation_form_builder.svg)](https://travis-ci.org/marnen/foundation_form_builder)
 
 # FoundationFormBuilder
 
