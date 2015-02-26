@@ -20,9 +20,9 @@ gem install foundation_form_builder
 ```
 Then put the following in your `application.rb` file:
 ```ruby
-config.action_view.default_form_builder = FoundationFormBuilder
+config.action_view.default_form_builder = FoundationFormBuilder::Rails
 ```
-This tells Rails to use the gem for all forms. If you don't want to do that, then specify it for the particular form you'd like to use it on.
+This tells Rails to use `FoundationFormBuilder::Rails` for all forms. If you don't want to do that, then specify it for the particular form you'd like to use it on.
 
 ### Simple usage
 
@@ -43,7 +43,7 @@ will create something like
 </form>
 ```
 
-Note that `FoundationFormBuilder` uses the Rails form helper functions to render the fields, and that it is somewhat smart in its choice of helpers. It uses `email_field` automatically if the name of the field is `email`; similarly, it uses `password_field` for any field whose name *contains* `password`. If the name of the field is `time_zone`, it renders a Rails `time_zone_select`. If the field corresponds to a `text` column in the database, it calls `text_area`; for a `date` column, it uses `date_field`. Otherwise, a plain `text_field` is used.
+Note that `FoundationFormBuilder::Rails` uses the Rails form helper functions to render the fields, and that it is somewhat smart in its choice of helpers. It uses `email_field` automatically if the name of the field is `email`; similarly, it uses `password_field` for any field whose name *contains* `password`. If the name of the field is `time_zone`, it renders a Rails `time_zone_select`. If the field corresponds to a `text` column in the database, it calls `text_area`; for a `date` column, it uses `date_field`. Otherwise, a plain `text_field` is used.
 
 
 Since `FoundationFormBuilder` is a subclass of the standard Rails `ActionView::Helpers::FormBuilder`, all the usual Rails `FormBuilder` helpers are also available. You'll probably need to use `f.submit` at least; we're not doing anything special with submit buttons at the moment.
