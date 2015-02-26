@@ -13,7 +13,11 @@ This gem is a work in progress. I welcome bug reports and pull requests! It's on
 
 ## Sounds great! How do I use it?
 
-Install the gem, then put the following in your `application.rb` file:
+Install the gem:
+```ruby
+gem install foundation_form_builder
+```
+Then put the following in your `application.rb` file:
 ```ruby
 config.action_view.default_form_builder = FoundationFormBuilder
 ```
