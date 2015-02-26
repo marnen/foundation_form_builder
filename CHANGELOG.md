@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 0.2.1
+
+26 Feb 2015
+
+Improved testing infrastructure; no actual changes to implementation or spec files.
+
 # 0.2.0
 
 26 Feb 2015
