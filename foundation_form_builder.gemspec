@@ -10,12 +10,12 @@ Gem::Specification.new do |spec|
   spec.email         = ["marnen@marnen.org"]
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
+    # spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
   end
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Rails FormBuilder for use with ZURB Foundation.}
+  # spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.homepage      = "https://github.com/marnen/foundation_form_builder"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -23,9 +23,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'actionview', '>= 4.2.0'
-  spec.add_dependency 'activerecord', '>= 4.2.0'
-  spec.add_dependency 'activesupport', '>= 4.2.0'
+  [
+    ['actionview', '>= 4.2.0'],
+    ['activerecord', '>= 4.2.0'],
+    ['activesupport', '>= 4.2.0']
+  ].each {|gem| spec.add_dependency *gem }
 
   [
     ['bundler', '~> 1.8'],
