@@ -8,7 +8,7 @@
 
 [Foundation](http://foundation.zurb.com) is an excellent CSS framework, and provides some [lovely components](http://foundation.zurb.com/docs/components/forms.html) for working with forms. Unfortunately, using them with Rails can be a bit of a hassle, as Foundation wants each form input to be wrapped in a `<div>`, with another `<div>` for errors.
 
-In addition, I wanted to use something like [Formtastic](http://github.com/justinfrench/formtastic) to DRY up my form field markup, but writing new renderers for Formtastic is non-trivial, and I wanted something a bit simpler anyway, so I rolled my own.
+In addition, I wanted to use something like [Formtastic](http://github.com/justinfrench/formtastic) to DRY up my form field markup, but writing new renderers for Formtastic is non-trivial, and I wanted something a bit simpler anyway, so I rolled my own. If you want to build pretty forms with a simple `FormBuilder` interface and all the Foundation goodness, this gem is for you!
 
 This gem is a work in progress. I welcome bug reports and pull requests! It's only tested on Rails 4.2 and Ruby 2.2 so far, but I'd love to support older versions of both Rails and Ruby if it's not too difficult to do so.
 
