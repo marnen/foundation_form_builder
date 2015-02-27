@@ -4,6 +4,16 @@ require 'active_support/time_with_zone'
 
 module FoundationFormBuilder
   class Rails < ActionView::Helpers::FormBuilder
+
+    # Renders a form field with label wrapped in an appropriate +<div>+, with another +<div>+ for errors if necessary.
+    #
+    # @param field_name [String, Symbol] Name of the field to render
+    # @option options [Hash] :field Options to pass through to the underlying Rails form helper. For +type: :time_zone+, +:priority_zones+ is also understood.
+    # @option options [String, Symbol] :label (human-readable version of +field_name+) Text for the +<label>+ element
+    # @option options [Symbol] :type (type inferred by #infer_type) Type of field to render.
+    #   Known values are +:date+, +:email+, +:password+, +:select+, +:textarea+, and +:time_zone+. Anything else is rendered as a text field.
+    # @option options [Array] :values Name-value pairs for +<option>+ elements. Only meaningful with +type: :select+.
+    # @return [SafeBuffer] The rendered HTML
     def input_div(field_name, label: nil, type: nil, values: nil, field: {})
       raise ArgumentError, ':values is only meaningful with type: :select' if values && type != :select
       @template.content_tag :div, class: field_name do
@@ -17,6 +27,10 @@ module FoundationFormBuilder
 
     private
 
+    # Renders a +<div>+ with errors if there are any for the specified field, or returns +nil+ if not.
+    #
+    # @param field_name [String, Symbol] Name of the field to check for errors
+    # @return [SafeBuffer, nil] The rendered HTML or nil
     def error_div(field_name)
       error_messages = errors[field_name]
       if error_messages.present?
@@ -55,6 +69,10 @@ module FoundationFormBuilder
       end
     end
 
+    # Infers the type of field to render based on the field name.
+    #
+    # @param [String, Symbol] the name of the field
+    # @return [Symbol] the inferred type
     def infer_type(field_name)
       case field_name
       when :email, :time_zone
