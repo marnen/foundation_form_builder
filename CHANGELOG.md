@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 0.3.0
+
+27 Feb 2015
+
+Explicitly depend on Ruby 2 (since we were already using Ruby 2 syntax). [#1]
+
 # 0.2.1
 
 26 Feb 2015
