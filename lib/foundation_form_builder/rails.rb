@@ -8,11 +8,11 @@ module FoundationFormBuilder
     # Renders a form field with label wrapped in an appropriate +<div>+, with another +<div>+ for errors if necessary.
     #
     # @param field_name [String, Symbol] Name of the field to render
-    # @option options [Hash] :field Options to pass through to the underlying Rails form helper. For +type: :time_zone+, +:priority_zones+ is also understood.
-    # @option options [String, Symbol] :label (human-readable version of +field_name+) Text for the +<label>+ element
-    # @option options [Symbol] :type (type inferred by #infer_type) Type of field to render.
+    # @param label [String, Symbol] (human-readable version of +field_name+) Text for the +<label>+ element
+    # @param type [Symbol] (type inferred by #infer_type) Type of field to render.
     #   Known values are +:date+, +:email+, +:password+, +:select+, +:textarea+, and +:time_zone+. Anything else is rendered as a text field.
-    # @option options [Array] :values Name-value pairs for +<option>+ elements. Only meaningful with +type: :select+.
+    # @param values [Array] Name-value pairs for +<option>+ elements. Only meaningful with +type: :select+.
+    # @param field [Hash] Options to pass through to the underlying Rails form helper. For +type: :time_zone+, +:priority_zones+ is also understood.
     # @return [SafeBuffer] The rendered HTML
     def input_div(field_name, label: nil, type: nil, values: nil, field: {})
       raise ArgumentError, ':values is only meaningful with type: :select' if values && type != :select
