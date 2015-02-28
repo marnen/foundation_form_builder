@@ -11,8 +11,8 @@ module FoundationFormBuilder
     # @param label [String, Symbol] Override text for the +<label>+ element
     # @param type [Symbol] Override type of field to render.
     #   Known values are +:date+, +:email+, +:password+, +:select+, +:textarea+, and +:time_zone+. Anything else is rendered as a text field.
-    # @param values [Array] Name-value pairs for +<option>+ elements. Only meaningful with +type: :select+.
-    # @param field [Hash] Options to pass through to the underlying Rails form helper. For +type: :time_zone+, +:priority_zones+ is also understood.
+    # @param values [Array] Name-value pairs for +<option>+ elements. Only meaningful with +type:+ +:select+.
+    # @param field [Hash] Options to pass through to the underlying Rails form helper. For +type:+ +:time_zone+, +:priority_zones+ is also understood.
     # @return [SafeBuffer] The rendered HTML
     def input_div(field_name, label: nil, type: nil, values: nil, field: {})
       raise ArgumentError, ':values is only meaningful with type: :select' if values && type != :select
