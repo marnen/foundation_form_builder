@@ -8,8 +8,8 @@ module FoundationFormBuilder
     # Renders a form field with label wrapped in an appropriate +<div>+, with another +<div>+ for errors if necessary.
     #
     # @param field_name [String, Symbol] Name of the field to render
-    # @param label [String, Symbol] (human-readable version of +field_name+) Text for the +<label>+ element
-    # @param type [Symbol] (type inferred by #infer_type) Type of field to render.
+    # @param label [String, Symbol] Override text for the +<label>+ element
+    # @param type [Symbol] Override type of field to render.
     #   Known values are +:date+, +:email+, +:password+, +:select+, +:textarea+, and +:time_zone+. Anything else is rendered as a text field.
     # @param values [Array] Name-value pairs for +<option>+ elements. Only meaningful with +type: :select+.
     # @param field [Hash] Options to pass through to the underlying Rails form helper. For +type: :time_zone+, +:priority_zones+ is also understood.
