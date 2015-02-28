@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 0.3.2
+
+27 Feb 2015
+
+Fix some syntax issues in the docstrings. [#2]
+
 # 0.3.1
 
 27 Feb 2015
