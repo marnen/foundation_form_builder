@@ -77,7 +77,7 @@ f.input_div :size, label: 'My size is:', type: :select, values: [['Small', 1], [
 It renders as:
 ```html
 <div class='size'> <!-- and class 'error' if necessary -->
-  <label for='product_siz'>My size is:</label>
+  <label for='product_size'>My size is:</label>
   <select name='product[size]' id='product_size'>
     <option>Choose a size</option>
     <option value='1'>Small</option>
