@@ -20,21 +20,21 @@ module FoundationFormBuilder
         [
           label(field_name, label),
           input_for(field_name, type, field, values: values),
-          error_div(field_name)
+          errors_for(field_name)
         ].compact.join("\n").html_safe
       end
     end
 
     private
 
-    # Renders a +<div>+ with errors if there are any for the specified field, or returns +nil+ if not.
+    # Renders a +<span>+ with errors if there are any for the specified field, or returns +nil+ if not.
     #
     # @param field_name [String, Symbol] Name of the field to check for errors
     # @return [SafeBuffer, nil] The rendered HTML or nil
-    def error_div(field_name)
+    def errors_for(field_name)
       error_messages = errors[field_name]
       if error_messages.present?
-        @template.content_tag :div, class: :error do
+        @template.content_tag :span, class: :error do
           error_messages.join(@template.tag :br).html_safe
         end
       else

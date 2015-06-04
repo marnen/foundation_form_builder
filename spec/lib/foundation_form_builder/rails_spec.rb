@@ -43,7 +43,7 @@ describe FoundationFormBuilder::Rails, type: :view do
         end
 
         it 'renders an error element' do
-          expect(input_div).to have_tag "#{wrapper} .error", text: %r{#{error_messages.join '.*'}}m
+          expect(input_div).to have_tag "#{wrapper} span.error", text: %r{#{error_messages.join '.*'}}m
         end
       end
     end
