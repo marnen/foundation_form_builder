@@ -50,6 +50,7 @@ Note that `FoundationFormBuilder::Rails` uses the Rails form helper functions to
 | Field name is `email`                   | `email_field`       |
 | Field name is `time_zone`               | `time_zone_select`  |
 | Field name contains the word `password` | `password_field`    |
+| Field maps to numeric column in DB      | `number_field`      |
 | Field maps to `date` column in DB       | `date_field`        |
 | Field maps to `text` column in DB       | `text_area`         |
 | Otherwise                               | `text_field`        |
@@ -64,7 +65,7 @@ Since `FoundationFormBuilder::Rails` is a subclass of the standard Rails `Action
 | ------    | ------                                                                                                                                                                                                                 |
 | `:field`  | Hash of options to pass through to the underlying Rails form helper                                                                                                                                                    |
 | `:label`  | Text for label                                                                                                                                                                                                         |
-| `:type`   | Explicit form helper type; overrides inferred types (see above). Significant values are `:date`, `:email`, `:password`, `:select`, `:textarea`, and `:time_zone`; `:text` or anything else will generate a text field. |
+| `:type`   | Explicit form helper type; overrides inferred types (see above). Significant values are `:date`, `:email`, `:numeric`, `:password`, `:select`, `:textarea`, and `:time_zone`; `:text` or anything else will generate a text field. |
 | `:values` | Values for `<option>` elements; only meaningful with `type: :select`.                                                                                                                                                  |
 
 The following example shows all of these options in use.
