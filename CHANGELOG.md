@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 1.0.0
+
+4 Jun 2015
+
+Change error markup so it's compatible with Foundation 5 (and hopefully still with Foundation 4...).
+
 # 0.3.2
 
 27 Feb 2015
