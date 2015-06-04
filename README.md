@@ -34,11 +34,11 @@ end
 will create something like
 ```html
 <form action='users/1' and='all the other standard Rails attributes :)'>
-  <div class='email'>
+  <div class='email'> <!-- adds class 'error' too if there are validation errors -->
     <label for='user_email'>Email</label>
     <input type='email' id='user_email' name='user[email]' />
     <!-- if there are validation errors, also the following: -->
-    <div class='error'>can't be blank</div>
+    <span class='error'>can't be blank</div>
   </div>
 </form>
 ```
@@ -75,13 +75,13 @@ f.input_div :size, label: 'My size is:', type: :select, values: [['Small', 1], [
 
 It renders as:
 ```html
-<div class='size'>
-  <label for='product_size'>My size is:</label>
+<div class='size'> <!-- and class 'error' if necessary -->
+  <label for='product_siz'>My size is:</label>
   <select name='product[size]' id='product_size'>
     <option>Choose a size</option>
     <option value='1'>Small</option>
     <option value='2'>Large</option>
   </select>
-  <!-- error div if necessary, as above -->
+  <!-- error span if necessary, as above -->
 </div>
 ```
