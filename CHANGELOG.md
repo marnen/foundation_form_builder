@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 1.1.0
+
+4 Jun 2015
+
+Support HTML numeric fields.
+
 # 1.0.1
 
 4 Jun 2015
