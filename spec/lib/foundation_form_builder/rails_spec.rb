@@ -136,6 +136,18 @@ describe FoundationFormBuilder::Rails, type: :view do
           end
         end
 
+        context 'numeric' do
+          [:decimal, :integer, :float].each do |type|
+            let(:type) { type }
+
+            context type do
+              it 'renders a number field' do
+                expect(input_div).to have_tag "#{wrapper} input##{input_id}[type='number']"
+              end
+            end
+          end
+        end
+
         context 'string' do
           let(:type) { :string }
 

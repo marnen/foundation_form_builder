@@ -67,6 +67,7 @@ module FoundationFormBuilder
         method_mappings = {
           date: :date_field,
           email: :email_field,
+          numeric: :number_field,
           password: :password_field,
           textarea: :text_area,
         }
@@ -91,7 +92,14 @@ module FoundationFormBuilder
         type_mappings = {text: :textarea}
 
         db_type = @object.column_for_attribute(field_name).type
-        type_mappings[db_type] || db_type
+        case db_type
+        when :text
+          :textarea
+        when :decimal, :integer, :float
+          :numeric
+        else
+          db_type
+        end
       end
     end
   end
