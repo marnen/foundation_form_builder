@@ -23,9 +23,15 @@ describe FoundationFormBuilder::Rails, type: :view do
     end
 
     describe 'errors' do
+      let(:error_wrapper) { "#{wrapper}.error"}
+
       context 'nil' do
+        it 'does not put an error class on the wrapper' do
+          expect(input_div).not_to have_tag error_wrapper
+        end
+
         it 'does not render an error element' do
-          expect(input_div).not_to have_tag "#{wrapper} .error"
+          expect(input_div).not_to have_tag error_wrapper
         end
       end
 
@@ -42,8 +48,12 @@ describe FoundationFormBuilder::Rails, type: :view do
           allow(object).to receive(:errors).and_return errors
         end
 
+        it 'puts an error class on the wrapper' do
+          expect(input_div).to have_tag error_wrapper
+        end
+
         it 'renders an error element' do
-          expect(input_div).to have_tag "#{wrapper} .error", text: %r{#{error_messages.join '.*'}}m
+          expect(input_div).to have_tag "#{error_wrapper} span.error", text: %r{#{error_messages.join '.*'}}m
         end
       end
     end
