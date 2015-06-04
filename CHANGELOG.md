@@ -1,5 +1,11 @@
 # FoundationFormBuilder changelog
 
+# 1.0.1
+
+4 Jun 2015
+
+Bring documentation up to date.
+
 # 1.0.0
 
 4 Jun 2015
