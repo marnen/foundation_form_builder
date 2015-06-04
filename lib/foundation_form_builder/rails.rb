@@ -16,7 +16,7 @@ module FoundationFormBuilder
     # @return [SafeBuffer] The rendered HTML
     def input_div(field_name, label: nil, type: nil, values: nil, field: {})
       raise ArgumentError, ':values is only meaningful with type: :select' if values && type != :select
-      @template.content_tag :div, class: field_name do
+      @template.content_tag :div, class: classes_for(field_name) do
         [
           label(field_name, label),
           input_for(field_name, type, field, values: values),
@@ -26,6 +26,14 @@ module FoundationFormBuilder
     end
 
     private
+
+    def classes_for(field_name)
+      [field_name, error_class(field_name)]
+    end
+
+    def error_class(field_name)
+      errors[field_name].present? ? :error : nil
+    end
 
     # Renders a +<span>+ with errors if there are any for the specified field, or returns +nil+ if not.
     #
